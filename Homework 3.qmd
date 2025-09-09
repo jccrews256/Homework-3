@@ -1,0 +1,122 @@
+---
+title: "Control Flow and Functions"
+author: "Cass Crews"
+format: html
+editor: visual
+---
+
+#Task 1: Control Flow Practice
+
+For this task I will utilize `for` loops to manipulate a list.  
+
+First, I need to load the R objects I will manipulate. 
+
+```{r}
+#Loading R Objects
+load("hw2_list.rda")
+```
+
+### 1.
+
+We want to characterize post-treatment blood pressure `status` for the treatment and placebo/control groups. To do so, we need to create columns each data frame within the list `bp_list`. 
+
+```{r}
+#Creating new character column in treatment data frame
+bp_list$treatment$status <- character(20) 
+
+#Creating new character column in placebo data frame
+bp_list$placebo$status <- character(10)
+```
+
+### 2. 
+
+Next, we need to assign the correct status label for each patient in the treatment group. 
+
+```{r}
+#Creating for loop to assign correct status label to each subject
+for (i in 1:length(bp_list$treatment$status)) {
+  if (bp_list$treatment$post_bp[i] <= 120) {
+    bp_list$treatment$status[i]<-"optimal"
+  } else if ((bp_list$treatment$post_bp[i] > 120) & (bp_list$treatment$post_bp[i] <= 130)) {
+    bp_list$treatment$status[i]<-"borderline"
+  } else if (bp_list$treatment$post_bp[i] > 130) {
+    bp_list$treatment$status[i]<-"high"
+  }
+}
+```
+
+### 3. 
+
+Finally, we need to assign the correct status label for each patient that received the placebo. 
+
+```{r}
+#Creating for loop to assign correct status label to each subject
+for (i in 1:length(bp_list$placebo$status)) {
+  if (bp_list$placebo$post_bp[i] <= 120) {
+    bp_list$placebo$status[i]<-"optimal"
+  } else if ((bp_list$placebo$post_bp[i] > 120) & (bp_list$placebo$post_bp[i] <= 130)) {
+    bp_list$placebo$status[i]<-"borderline"
+  } else if (bp_list$placebo$post_bp[i] > 130) {
+    bp_list$placebo$status[i]<-"high"
+  }
+}
+```
+
+
+# Task 2: Function Writing
+
+For this task, we will write a function designed to take in lists such as ours and produce summary statistics. 
+
+### 1. 
+
+```{r}
+#Creating summary statistic function that takes in a list structured as bp_list 
+#and exports the summary statistics of choice for pre_bp, post_bp, and diff_bp
+#for the treatment and control group
+summarize<-function(list,stat="mean") {
+  #Capturing user-specified statistic
+  my_fun<-get(stat)
+  
+  #Capturing names of each data frame in the list
+  df_names<-names(list)
+  
+  #Creating initial vectors for final summary statistic values and metric "names"
+  values<-c()
+  value_names<-c()
+  
+  #Setting initial iteration value to keep up with iteration count in loop
+  iter<-1
+  
+  #Running loop to calculate summary statistic values and assign appropriate names
+    #Looping across data frame and columns (within each data frame)
+  for (i in df_names) {
+    for (j in c("pre_bp","post_bp","diff_bp")) {
+      values[iter]<-my_fun(list[[i]][,j]) #Generating summary statistic value
+      value_names[iter]<-paste(i,j,stat,sep="_") #Generating appropriate metric name
+      iter<-iter+1 #Updating iteration count
+    }
+  }
+  
+  #Assigning names to summary statistic values vector
+  names(values)<-value_names
+  
+  #Returning vector of summary statistic values
+  return(values)
+}
+
+#Generating sample means for bp_list
+summarize(bp_list)
+
+#Generating sample variances for bp_list
+summarize(bp_list,stat="var")
+
+#Generating sample standard deviations for bp_list
+summarize(bp_list,stat="sd")
+
+#Generating sample minimums for bp_list
+summarize(bp_list,stat="min")
+
+#Generating sample maximums for bp_list
+summarize(bp_list,stat="max")
+```
+
