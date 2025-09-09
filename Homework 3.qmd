@@ -18,48 +18,60 @@ load("hw2_list.rda")
 
 ### 1.
 
-We want to characterize post-treatment blood pressure `status` for the treatment and placebo/control groups. To do so, we need to create columns each data frame within the list `bp_list`. 
+We want to characterize post-treatment blood pressure `status` for the treatment and placebo/control groups. To do so, we need to create columns each data frame within the list `bp_list`. Each data frame is printed below to demonstrate that we have added an empty character column, called `status`, to them. 
 
 ```{r}
 #Creating new character column in treatment data frame
 bp_list$treatment$status <- character(20) 
 
+#Printing updated data frame
+bp_list$treatment
+
 #Creating new character column in placebo data frame
 bp_list$placebo$status <- character(10)
+
+#Printing updated data frame
+bp_list$placebo
 ```
 
 ### 2. 
 
-Next, we need to assign the correct status label for each patient in the treatment group. 
+Next, we need to assign the correct status label for each patient in the treatment group. The resultant data frame (still an element of `bp_list`) is printed below. 
 
 ```{r}
 #Creating for loop to assign correct status label to each subject
 for (i in 1:length(bp_list$treatment$status)) {
   if (bp_list$treatment$post_bp[i] <= 120) {
-    bp_list$treatment$status[i]<-"optimal"
+    bp_list$treatment$status[i]<-"optimal" #Assigning "optimal" to low-BP group
   } else if ((bp_list$treatment$post_bp[i] > 120) & (bp_list$treatment$post_bp[i] <= 130)) {
-    bp_list$treatment$status[i]<-"borderline"
+    bp_list$treatment$status[i]<-"borderline" #Assigning "borderline" to moderate-BP group
   } else if (bp_list$treatment$post_bp[i] > 130) {
-    bp_list$treatment$status[i]<-"high"
+    bp_list$treatment$status[i]<-"high" #Assigning "high" to high-BP group
   }
 }
+
+#Printing updated data frame
+bp_list$treatment
 ```
 
 ### 3. 
 
-Finally, we need to assign the correct status label for each patient that received the placebo. 
+Finally, we need to assign the correct status label for each patient that received the placebo. The resultant data frame (still an element of `bp_list`) is printed below.
 
 ```{r}
 #Creating for loop to assign correct status label to each subject
 for (i in 1:length(bp_list$placebo$status)) {
   if (bp_list$placebo$post_bp[i] <= 120) {
-    bp_list$placebo$status[i]<-"optimal"
+    bp_list$placebo$status[i]<-"optimal" #Assigning "optimal" to low-BP group
   } else if ((bp_list$placebo$post_bp[i] > 120) & (bp_list$placebo$post_bp[i] <= 130)) {
-    bp_list$placebo$status[i]<-"borderline"
+    bp_list$placebo$status[i]<-"borderline" #Assigning "borderline" to moderate-BP group
   } else if (bp_list$placebo$post_bp[i] > 130) {
-    bp_list$placebo$status[i]<-"high"
+    bp_list$placebo$status[i]<-"high"  #Assigning "high" to high-BP group
   }
 }
+
+#Printing updated data frame
+bp_list$placebo
 ```
 
 
