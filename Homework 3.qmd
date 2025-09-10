@@ -5,7 +5,7 @@ format: html
 editor: visual
 ---
 
-#Task 1: Control Flow Practice
+# Task 1: Control Flow Practice
 
 For this task I will utilize `for` loops to manipulate a list.  
 
@@ -77,9 +77,11 @@ bp_list$placebo
 
 # Task 2: Function Writing
 
-For this task, we will write a function designed to take in lists such as ours and produce summary statistics. 
+For this task, we will write a function designed to take in lists such as ours and produce summary statistics for `pre_bp`, `post_bp`, and `diff_bp` from each data frame. 
 
 ### 1. 
+
+First, we will create the function:
 
 ```{r}
 #Creating summary statistic function that takes in a list structured as bp_list 
@@ -115,10 +117,19 @@ summarize<-function(list,stat="mean") {
   #Returning vector of summary statistic values
   return(values)
 }
+```
 
+
+Next, we will test the function by initially passing our list by no statistic. This will return the six sample means we want. 
+
+```{r}
 #Generating sample means for bp_list
 summarize(bp_list)
+```
 
+Finally, we will test the function by passing `"var"`, `"sd"`, `"min"`, and `"max"`. This will respectively return sets of six sample variances, sample standard deviations, minimums, and maximums. 
+
+```{r}
 #Generating sample variances for bp_list
 summarize(bp_list,stat="var")
 

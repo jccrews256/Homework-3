@@ -140,7 +140,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>#Task 1: Control Flow Practice</p>
+<section id="task-1-control-flow-practice" class="level1">
+<h1>Task 1: Control Flow Practice</h1>
 <p>For this task I will utilize <code>for</code> loops to manipulate a list.</p>
 <p>First, I need to load the R objects I will manipulate.</p>
 <div class="cell">
@@ -273,11 +274,13 @@ Subject_20 Subject_20    132     115      17   TRUE    optimal</code></pre>
 </div>
 </div>
 </section>
+</section>
 <section id="task-2-function-writing" class="level1">
 <h1>Task 2: Function Writing</h1>
-<p>For this task, we will write a function designed to take in lists such as ours and produce summary statistics.</p>
+<p>For this task, we will write a function designed to take in lists such as ours and produce summary statistics for <code>pre_bp</code>, <code>post_bp</code>, and <code>diff_bp</code> from each data frame.</p>
 <section id="section-3" class="level3">
 <h3 class="anchored" data-anchor-id="section-3">1.</h3>
+<p>First, we will create the function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Creating summary statistic function that takes in a list structured as bp_list </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#and exports the summary statistics of choice for pre_bp, post_bp, and diff_bp</span></span>
@@ -311,42 +314,47 @@ Subject_20 Subject_20    132     115      17   TRUE    optimal</code></pre>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Returning vector of summary statistic values</span></span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(values)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample means for bp_list</span></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we will test the function by initially passing our list by no statistic. This will return the six sample means we want.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample means for bp_list</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> treatment_pre_bp_mean treatment_post_bp_mean treatment_diff_bp_mean 
                 131.60                 125.95                   5.65 
    placebo_pre_bp_mean   placebo_post_bp_mean   placebo_diff_bp_mean 
                 131.90                 128.90                   3.00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample variances for bp_list</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we will test the function by passing <code>"var"</code>, <code>"sd"</code>, <code>"min"</code>, and <code>"max"</code>. This will respectively return sets of six sample variances, sample standard deviations, minimums, and maximums.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample variances for bp_list</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> treatment_pre_bp_var treatment_post_bp_var treatment_diff_bp_var 
              75.72632              78.99737             117.81842 
    placebo_pre_bp_var   placebo_post_bp_var   placebo_diff_bp_var 
             149.87778             124.98889             341.33333 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample standard deviations for bp_list</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"sd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample standard deviations for bp_list</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"sd"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> treatment_pre_bp_sd treatment_post_bp_sd treatment_diff_bp_sd 
             8.702087             8.888046            10.854419 
    placebo_pre_bp_sd   placebo_post_bp_sd   placebo_diff_bp_sd 
            12.242458            11.179843            18.475209 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample minimums for bp_list</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample minimums for bp_list</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> treatment_pre_bp_min treatment_post_bp_min treatment_diff_bp_min 
                   115                   114                   -24 
    placebo_pre_bp_min   placebo_post_bp_min   placebo_diff_bp_min 
                   114                   105                   -21 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample maximums for bp_list</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"max"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generating sample maximums for bp_list</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(bp_list,<span class="at">stat=</span><span class="st">"max"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> treatment_pre_bp_max treatment_post_bp_max treatment_diff_bp_max 
                   151                   146                    21 
